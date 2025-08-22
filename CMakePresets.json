@@ -1,0 +1,95 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 25,
+		"patch": 0
+	},
+	"configurePresets": [
+		{
+			"name": "x86_base",
+			"hidden": true,
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+				"THREADS_PREFER_PTHREAD_FLAG": "ON",
+				"FETCHCONTENT_UPDATES_DISCONNECTED": "ON",
+				"CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/${presetName}/bin_deploy",
+				"CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/${presetName}/bin_deploy/lib"
+			}
+		},
+		{
+			"name":"gcc_base",
+			"hidden": true,
+			"inherits": "x86_base",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "gcc",
+				"CMAKE_CXX_COMPILER": "g++"
+			}
+		},
+		{
+			"name": "x86_gcc_debug",
+			"displayName": "X86 GCC Debug",
+			"inherits": "gcc_base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "x86_gcc_release",
+			"displayName": "X86 GCC Release",
+			"inherits": "gcc_base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		},
+		{
+			"name":"clang_base",
+			"hidden": true,
+			"inherits": "x86_base",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "clang",
+				"CMAKE_CXX_COMPILER": "clang++"
+			}
+		},
+		{
+			"name": "x86_clang_debug",
+			"displayName": "X86 Clang Debug",
+			"inherits": "clang_base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "x86_clang_release",
+			"displayName": "X86 Clang Release",
+			"inherits": "clang_base",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "x86_gcc_debug",
+			"configurePreset": "x86_gcc_debug",
+			"jobs": 8
+		},
+		{
+			"name": "x86_gcc_release",
+			"configurePreset": "x86_gcc_release",
+			"jobs": 8
+		},
+		{
+			"name": "x86_clang_debug",
+			"configurePreset": "x86_clang_debug",
+			"jobs": 8
+		},
+		{
+			"name": "x86_clang_release",
+			"configurePreset": "x86_clang_release",
+			"jobs": 8
+		}
+	]
+}
